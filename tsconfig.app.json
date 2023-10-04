@@ -1,12 +1,61 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/__tests__/*"
+  ],
   "compilerOptions": {
+    // 指定ECMAScript目标版本
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    // 指定生成哪个模块系统代码
+    "module": "ESNext",
+    // 决定哪种模块解析策略
+    "moduleResolution": "node",
+    // 启用严格类型检查
+    "strict": true,
+    // 控制是否包含 TypeScript 核心库（lib.d.ts）的默认引用
+    "noLib": false,
+    // JSX 语法支持
+    "jsx": "preserve",
+    // 控制是否生成源映射文件（.map 文件）
+    "sourceMap": true,
+    // 启用 JSON 模块导入
+    "resolveJsonModule": true,
+    // 启用模块导入的交互性
+    "esModuleInterop": true,
+    // TypeScript 核心库
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "composite": true,
+    // 用于解析非相对模块导入的基本 URL
     "baseUrl": ".",
+    // 是否允许编译器编译 JavaScript 文件
+    "allowJs": true,
+    // 自定义模块别名
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "src/*"
+      ]
+    },
+    // 额外的类型声明文件
+    "types": [
+      "vite/client"
+    ],
+    // 跳过对声明文件的检查
+    "skipLibCheck": true,
+    // 允许合成默认导出
+    "allowSyntheticDefaultImports": true,
+    // 强制文件名大小写一致
+    "forceConsistentCasingInFileNames": true
   }
 }
