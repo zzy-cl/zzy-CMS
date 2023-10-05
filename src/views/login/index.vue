@@ -11,6 +11,9 @@ const loginData = ref({
 })
 // 登陆表单引用
 const loginFormRef = ref(ElForm)
+
+// 验证码 Base64 图片
+const captchaBase64 = ref()
 </script>
 
 <template>
@@ -21,16 +24,20 @@ const loginFormRef = ref(ElForm)
       </div>
       <el-form-item prop='username'>
         <el-input
+          class='flex-1'
           v-model='loginData.username'
           name='username'
+          size='large'
           placeholder='请输入管理员账号'
           :prefix-icon='User'
         />
       </el-form-item>
       <el-form-item prop='password'>
         <el-input
+          class='flex-1'
           v-model='loginData.password'
           name='password'
+          size='large'
           placeholder='请输入管理员密码'
           show-password
           :prefix-icon='Lock'
@@ -38,14 +45,20 @@ const loginFormRef = ref(ElForm)
       </el-form-item>
       <el-form-item prop='verifyCode'>
         <el-input
+          class='w-[60%]'
           v-model='loginData.verifyCode'
+          size='large'
           placeholder='验证码'
         />
         <div class='captcha'>
-          <img src='' alt=''>
+          <img :src='captchaBase64' alt='captchaBase64Img'>
         </div>
       </el-form-item>
-      <el-button>登录</el-button>
+      <el-button
+        class='w-full'
+        size='default'
+      >登录
+      </el-button>
     </el-form>
   </div>
 </template>
@@ -90,8 +103,45 @@ const loginFormRef = ref(ElForm)
 
       img {
         width: 120px;
-        height: 48px;
+        height: 40px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+.el-form-item {
+  background-color: rgb(0 0 0 / 10%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+}
+
+.el-input {
+  background-color: transparent;
+
+  :deep(.el-input__wrapper) {
+    background-color: transparent;
+    box-shadow: none;
+
+    .el-input__inner {
+      color: #fff;
+      background-color: transparent;
+      border: 0;
+      border-radius: 0;
+      caret-color: #fff;
+
+      &:-webkit-autofill {
+        box-shadow: 0 0 0 1000px transparent inset !important;
+        -webkit-text-fill-color: #fff !important;
+      }
+
+      // 设置输入框自动填充的延迟属性
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        transition: color 99999s ease-out, background-color 99999s ease-out;
+        transition-delay: 99999s;
       }
     }
   }
